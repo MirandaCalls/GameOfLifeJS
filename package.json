@@ -1,0 +1,11 @@
+{
+  "name": "gameoflife",
+  "version": "1.0.0",
+  "description": "Simple browser based Conway's Game of Life implementation.",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
