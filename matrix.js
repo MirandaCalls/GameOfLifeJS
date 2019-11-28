@@ -2,6 +2,10 @@ import {getRandomInt} from './lib.js';
 
 export default class SparseMatrix 
 {
+    /**
+     * @param {int} width - Width of the matrix
+     * @param {int} height - Height of the matrix
+     */
     constructor(width, height)
     {
         this.width = width;
@@ -9,6 +13,11 @@ export default class SparseMatrix
         this.matrix = [];
     }
 
+    /**
+     * Iterate Matrix
+     * 
+     * @returns {Iterable} - Iterable containing coordinate arrays to loop over
+     */
     iterate()
     {
         let _this = this;
@@ -21,6 +30,12 @@ export default class SparseMatrix
         }();
     }
 
+    /**
+     * Checks If Cell is Occupied
+     * 
+     * @param {int} x 
+     * @param {int} y 
+     */
     cellFilled(x,y)
     {
         this._checkCoordConstraints(x,y);
@@ -28,6 +43,12 @@ export default class SparseMatrix
         return coords in this.matrix;
     }
 
+    /**
+     * Set Cell as Occupied
+     * 
+     * @param {int} x 
+     * @param {int} y
+     */
     setCell(x,y)
     {
         this._checkCoordConstraints(x,y)
@@ -35,17 +56,40 @@ export default class SparseMatrix
         this.matrix[ coords ] = true;
     }
 
+    /**
+     * Convert to String Coordinates
+     * 
+     * @param {int} x 
+     * @param {int} y 
+     * 
+     * @returns {string} - Coordinates in "X,Y" form
+     */
     _strCoords(x,y)
     {
         return x + "," + y;
     }
 
+    /**
+     * Convert to Int Coordinates
+     * 
+     * @param {string} coords
+     * 
+     * @returns {array} - Coordinates in an array. Two values: X (0) and Y (1)
+     */
     _intCoords(coords)
     {
         coords = coords.split(",");
         return [parseInt(coords[0]), parseInt(coords[1])];
     }
 
+    /**
+     * Check Coordinate Constraints
+     * 
+     * @param {int} x 
+     * @param {int} y
+     * 
+     * @returns {boolean} - Whether the provided coordinates were out of bounds 
+     */
     _checkCoordConstraints(x,y)
     {
         if (x > (this.width - 1) || x < 0)
@@ -58,6 +102,17 @@ export default class SparseMatrix
         }
     }
 
+    /**
+     * Build Random Matrix
+     * 
+     * Generates a new SparseMatrix object.
+     * Each cell has a 50/50 chance of being populated.
+     * 
+     * @param {int} width - Number of columns in the matrix
+     * @param {int} height - Number of rows in the matrix
+     * 
+     * @returns {SparseMatrix}
+     */
     static buildRandomMatrix(width, height)
     {
         let matrix = new SparseMatrix(width, height);
@@ -81,7 +136,7 @@ export default class SparseMatrix
      * @param {int} y - Y coordinate of the matrix cell
      * 
      * @returns {array} - Array of neighbor coordinates
-     *                    Each neighbord coordinate array has two values X (0) and Y (1)
+     *                    Each neighbor coordinate array has two values X (0) and Y (1)
      */
     static getNeighborCoords(x, y, width, height)
     {

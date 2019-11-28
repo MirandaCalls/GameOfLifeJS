@@ -2,6 +2,10 @@ import SparseMatrix from './matrix.js';
 
 export default class GameBoard
 {
+    /**
+     * @param {HTMLCanvasElement} canvas - Canvas to draw on
+     * @param {int} cellSize - Pixel size of the board cells
+     */
     constructor(canvas, cellSize)
     {
         this.generation = 0;
@@ -18,7 +22,7 @@ export default class GameBoard
      * Takes the previous matrix state and determines
      * the state of the next generation.
      */
-    calcNextGeneration()
+    _calcNextGeneration()
     {
         let next_gen = new SparseMatrix(this.width, this.height);
         for (let coords of this.matrix.iterate())
@@ -30,7 +34,7 @@ export default class GameBoard
                 if (this.matrix.cellFilled(nCoords[0], nCoords[1]))
                 {
                     live_count++;
-                } else if (this.doesCellReanimate(nCoords[0], nCoords[1]))
+                } else if (this._doesCellReanimate(nCoords[0], nCoords[1]))
                 {
                     next_gen.setCell(nCoords[0], nCoords[1]);
                 }
@@ -47,7 +51,15 @@ export default class GameBoard
         this.matrix = next_gen;
     }
 
-    doesCellReanimate(x,y)
+    /**
+     * Does Cell Reanimate
+     * 
+     * @param {int} x
+     * @param {int} y
+     * 
+     * @returns {boolean} - Whether the cell should be alive in the next generation
+     */
+    _doesCellReanimate(x,y)
     {
         let live_count = 0;
         let neighbors = SparseMatrix.getNeighborCoords(x, y, this.width, this.height);
@@ -86,6 +98,6 @@ export default class GameBoard
         draw_context.font = '15px Arial';
         draw_context.fillText(status_text, 10, 25);
 
-        this.calcNextGeneration();
+        this._calcNextGeneration();
     }
 }
