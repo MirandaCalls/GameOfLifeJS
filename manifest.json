@@ -1,0 +1,13 @@
+{
+    "short_name": "Game of Life JS",
+    "name": "Game of Life JS",
+    "icons": [
+        {
+            "src": "/lifeicon.png",
+            "type": "image/png",
+            "sizes": "180x180"
+          }
+    ],
+    "start_url": ".",
+    "display": "standalone"
+  }
